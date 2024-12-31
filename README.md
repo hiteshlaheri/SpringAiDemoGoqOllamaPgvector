@@ -6,13 +6,10 @@ Create Assistence for getting report list based on user interest.
 
 1. Use Spring Boot Create Project from Spring initilizer and Add Below Dependency
 2. ![image](https://github.com/user-attachments/assets/bbfaca8e-8823-48a3-9094-38478077873e)
-
 3. Create project Structure
 4. ![image](https://github.com/user-attachments/assets/e3b65bcb-12bd-4107-94c8-0c802d2786ed)
-
 5. Configure PgVectoreStore and ChatClient
    Here PgVector Store use locally installed Ollama for Embedding model and ChatClient as Groq.
-
    GROQ_API_KEY can be generate from GROQ Cloud Console.
    Define Application.Properties As Below
    ```
@@ -30,8 +27,8 @@ Create Assistence for getting report list based on user interest.
     spring.ai.ollama.embedding.enabled=true
     logging.level.org.springframework = debug
 ```
-
-   ```
+**Configuration Class**
+```
     @Value("${GROQ_AI_KEY}")
     private String GROQ_AI_KEY;
     @Bean
@@ -51,7 +48,7 @@ Create Assistence for getting report list based on user interest.
         return ChatClient.create(openaichatmodel);
     }
    ```
-7. Create RestController, Initialize vectorestore,chatclient and systempropmt from SystemPromt.st file
+7.** Create RestController, Initialize vectorestore,chatclient and systempropmt from SystemPromt.st file**
    ```
      @Autowired
      ChatClient chatClient;
@@ -77,8 +74,7 @@ Create Assistence for getting report list based on user interest.
         return Map.of("Result",chatResponse.getResult().getOutput().getContent());
     }
    ```
-   7. Now create Report list in postgresql Report table using jdbctemplate and store data in pgvector make sure it should be one timw only.
-      
+8. Now create Report list in postgresql Report table using jdbctemplate and store data in pgvector make sure it should be one timw only.
     ```
 @Autowired
 	ReportService reportService;
